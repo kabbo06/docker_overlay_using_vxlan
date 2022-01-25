@@ -20,7 +20,7 @@ We will create a custom docker image on both nodes for this lab. So, it will be 
   **net1: 10.0.1.0/24**\
   **net2: 10.0.2.0/24**
   
-# Overlay Network Configuration:
+# Overlay Network Configurations:
 
 ### Docker Host1 (172.16.10.100):
 
@@ -146,7 +146,7 @@ sudo ovs-vsctl show
 
 ![3](https://user-images.githubusercontent.com/22352861/150972911-cc5533d2-221d-4233-9eb8-156c50d397ac.JPG)
   
-# Testing & Troubleshooting:
+# Testing & Troubleshootings:
 In this situation two distributed networks have been created between docker host1 and host2. We can check from containers:
 
 ![4](https://user-images.githubusercontent.com/22352861/150973927-e20b55bc-612a-43fa-9162-00763ce8c673.JPG)
@@ -173,14 +173,14 @@ In order to overcome this problem, we have to adjust MTU on the underlying netwo
 
 We can clearly see the problem has been fixed.
 
-# Outcome:
+# Outcomes:
 In this lab, we have successfully created docker distributed network. One big advantage of using **OVS** bridge is that it can be directly accessed from physical or host network if route is available. No port forwarding is needed. This is more efficient. We can check from one of host machines:
 
-![9](https://user-images.githubusercontent.com/22352861/151006280-4d8c8db5-ab57-4257-a4a6-c54f6f374e4e.JPG)
+![10](https://user-images.githubusercontent.com/22352861/151030132-ddad3f7e-ce2e-4900-847f-f62a1b627a4e.JPG)
 
 Last but not the least, we can configure our container network in several ways as per our requirements just like we can launch container without specifying gateway then we only have layer 2 connectivity. Beside that if we want to use host network in container. we can also do that by adding physical interface into **OVS** bridge. So, possibilities are endless.
 
-# Reference
+# References
 
 [Open vSwitch (OVS)](https://docs.openvswitch.org/en/latest/howto/)
 
