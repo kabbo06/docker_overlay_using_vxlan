@@ -155,6 +155,8 @@ From above we see container under **net1** can communicate each other. We will g
 
 Also, we are able to ping external network due to NAT configuration. But still there is one problem. We will face problem in network communication. We can check this by **iperf** tools:
 
+![6](https://user-images.githubusercontent.com/22352861/150998396-467841dd-98c0-4365-9697-30e8fcf4812e.JPG)
 
+As we use encapsulation, we get the common MTU (Maximum Transmission Unit) problem which occurs in such cases. MTU defines the maximum size of ethernet frame, which can be transmitted over the line. When MTU size is exceeded, IP package is splitted to the multiple packets or even gets dropped. In the VXLAN setup with encapsulation, we have Ethernet frames on the underlaying network and we also have ethernet frame on the overlay network. In this case we run into the common problem of MTU size: the frame on the underlaying network is bigger that standard MTU of 1500. we have to adjust MTU on the underlaying network. VXLAN requires 1554 MTU size for typical IPv4 traffic. But typically default value is set as 1500.
 
 
