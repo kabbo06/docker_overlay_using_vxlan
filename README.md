@@ -7,7 +7,7 @@ In this experiment, we will create multiple docker network and extend over layer
   **VM3: Docker Host2 (172.16.20.100/24)**
   
 # Scenario:
-Here, docker host1 is in **172.16.10.100/24** and docker host2 in **172.16.20.100/24** network. They are in completely different network as separated by layer 3. In this lab we won’t use any docker network driver but instead configure our own. We will need bridge interface on each host connects with associated container network. In that case Open vSwitch (**OVS**) will be used. We will built two internal network **( net1: 10.0.1.0/24  and net2: 10.0.2.0/24)** on each docker host and establish layer 2 connectivity between them. We will achieve this by creating **VXLAN** tunnel between these node. We will create two tunnels for **net1** and **net2**. Also, we will provide internet connectivity on these network and do some troubleshooting. So, our distributed docker network will be look like this.
+Here, docker host1 is in **172.16.10.100/24** and docker host2 in **172.16.20.100/24** network. They are in completely different network as separated by layer 3. In this lab we won’t use any docker network driver but instead configure our own. We will need bridge interface on each host connects with associated container network. In that case Open vSwitch (**OVS**) will be used. **OVS** is a very powerfull multilayer virtual switch utility. Although, we can built this configuration using **Linux native bridges**. We will built two internal network **( net1: 10.0.1.0/24  and net2: 10.0.2.0/24)** on each docker host and establish layer 2 connectivity between them. We will achieve this by creating **VXLAN** tunnel between these node. We will create two tunnels for **net1** and **net2**. Also, we will provide internet connectivity on these network and do some troubleshooting. So, our distributed docker network will be look like this.
 
 ![diag-1](https://user-images.githubusercontent.com/22352861/150917568-49c37c6a-6b05-4767-a42c-bb7eb9156f1f.jpg)
   
@@ -47,7 +47,9 @@ We didn't use any docker network driver above by adding **--net none** option. F
 
   sudo ovs-vsctl add-port br1 vxlan1 -- set interface vxlan1 type=vxlan options:remote_ip=172.16.20.100 options:key=5000
   
-###### Now, attach **net1** into container **doc1** with IP configuration by below:
+###### **ovs-docker** is a nice command. With this we can easily create virtual interface in container network namespace and connects with bridge interface.
+
+###### Now, attach **net1** into container **doc1** with IP configuration by below command:
 
   sudo ovs-docker add-port br1 eth0 doc1 --ipaddress=10.0.1.10/24 --gateway=10.0.1.1
 
@@ -69,7 +71,7 @@ We didn't use any docker network driver above by adding **--net none** option. F
 
   sudo ovs-vsctl add-port br2 vxlan2 -- set interface vxlan2 type=vxlan options:remote_ip=172.16.20.100 options:key=6000
   
-###### Now, attach **net2** into container **doc2** with IP configuration by below:
+###### Now, attach **net2** into container **doc2** with IP configuration by below command:
 
   sudo ovs-docker add-port br2 eth0 doc2 --ipaddress=10.0.2.10/24 --gateway=10.0.2.1
   
@@ -176,6 +178,6 @@ In this lab, we have sucessfully created doacker distributed network. One big be
 
 ![9](https://user-images.githubusercontent.com/22352861/151006280-4d8c8db5-ab57-4257-a4a6-c54f6f374e4e.JPG)
 
-Last but not least, we can configure our containet network in several ways as per our requirements just like if we launch container without specifying gateway then we only have layer 2 connectivity. 
+Last but not least, we can configure our containet network in several ways as per our requirements just like if we launch container without specifying gateway then we only have layer 2 connectivity. Beside that if we want to use host network in container. we can also do that by adding physical interface into **OVS** bridge. So, possibilities are endless.
 
 
