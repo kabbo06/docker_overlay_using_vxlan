@@ -7,7 +7,7 @@ In this experiment, we will create multiple docker network and extend over layer
   **VM3: Docker Host2 (172.16.20.100/24)**
   
 # Scenario:
-Here, docker host1 is in *172.16.10.100/24* and docker host2 in *172.16.20.100/24*. They are is different network as  We will need bridge (br1) interface on each host and connect with docker internal network. In that case Open vSwitch (**OVS**) will be used. We will create two internal network ( **10.0.1.0/24**  and **10.0.2.0/24**) on each docker host and establish layer 2 connectivity between them. We will achive this by creating tunnel between these hosts. We will use vxlan tunneling for this experiment. So, our whole network scenario will look like this.
+Here, docker host1 is in *172.16.10.100/24* and docker host2 in *172.16.20.100/24* network. They are in different network as separated by layer 3. In this lab we wont use any docker network driver but insted configure our own network. We will need bridge interface on each host connectes with associated container network. In that case Open vSwitch (**OVS**) will be used. We will create two internal network ( **net1: 10.0.1.0/24**  and **net2: 10.0.2.0/24**) on each docker host and establish layer 2 connectivity between them. We will achive this by creating VXLAN tunnel between these node. We will use two tunnels for **net1** and **net2**. Also, we will provide internet connectivity on these network and do some troubleshoot. So, our distributed docker network will be look like this.
   
   
   
