@@ -1,5 +1,5 @@
-# Extending multiple Docker layer 2 network using VXLAN tunneling 
-In this experiment, we will create multiple docker network and extend over layer 3 isolation. We will achive this by creating VXLAN tunnel between docker host. In this lab three virtual machines will be used. We will configure multiple distributed network between two docker host VM. Another VM will be used as a gateway router. 
+# Extending multiple Docker network using VXLAN tunneling 
+In this experiment, we will create multiple docker network and extend over layer 3 isolation. We will achive this by creating VXLAN tunnel between docker host. In this lab three virtual machines will be used. We will configure multiple distributed network between two docker host VMs. Another VM will be used as a gateway router. 
 
 # Requirements:
   **VM1: GW Router**\
