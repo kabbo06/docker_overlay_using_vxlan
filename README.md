@@ -178,7 +178,7 @@ In this lab, we have successfully created docker distributed network. One big ad
 
 ![10](https://user-images.githubusercontent.com/22352861/151030132-ddad3f7e-ce2e-4900-847f-f62a1b627a4e.JPG)
 
-Last but not the least, we can configure our container network in several ways as per our requirements just like we can launch container without specifying gateway then we only have layer 2 connectivity. Beside that if we want to use host network in container. we can also do that by adding physical interface into **OVS** bridge. So, possibilities are endless.
+Last but not the least, we can configure our container network in several ways as per our requirements just like we can launch container without specifying gateway then we only have layer 2 connectivity. Beside that if we want to use host network with container. We can also do that by adding physical interface into **OVS** bridge. SDN controller can also be integrated with **OVS** for switch flow control. So, possibilities are endless.
 
 # References
 
