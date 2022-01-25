@@ -11,5 +11,12 @@ Here, docker host1 is in **172.16.10.100/24** and docker host2 in **172.16.20.10
 
 ![diag-1](https://user-images.githubusercontent.com/22352861/150917568-49c37c6a-6b05-4767-a42c-bb7eb9156f1f.jpg)
   
+# Environment Setup:
+We will create a custom docker image on both node for this lab. So, it will be easy for us to test and troubleshoot issue. We can create docker image from Dockerfile. I have added required files in this repository. We will build custom image named **con_img** by below command.
+
+  docker build -t con_img .
+  
+
+
   
   
