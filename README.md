@@ -15,7 +15,25 @@ Here, docker host1 is in **172.16.10.100/24** and docker host2 in **172.16.20.10
 We will create a custom docker image on both node for this lab. So, it will be easy for us to test and troubleshoot issue. We can create docker image from Dockerfile. I have added required files in this repository. We will build custom image named **con_img** by below command.
 
   docker build -t con_img .
+
+# Container Network Specifications:
+  **net1: 10.0.1.0/24**\
+  **net2: 10.0.2.0/24**
   
+# Overlay Network Configuration:
+### Docker Host1 (172.16.10.100):
+
+First we will launch two docker containers **doc1** and **doc2** from host1 and define two networks for them respectively. Spawn container by below command.
+
+  docker run -di --net none --name doc1 con_img\
+  docker run -di --net none --name doc2 con_img 
+  
+We didn't use any docker network driver above by adding **--net none** option. For creating and connnecting our own container network **(net1 & net2)** we need to have bridge in docker host machine. We will create two bridge interface for these networks.\
+
+Now, create first bridge interface named **br1** using ovs utility.
+
+  sudo ovs-vsctl add-br br1
+
 
 
   
