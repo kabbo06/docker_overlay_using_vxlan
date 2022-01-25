@@ -7,12 +7,12 @@ In this experiment, we will create multiple docker network and extend over layer
   **VM3: Docker Host2 (172.16.20.100/24)**
   
 # Scenario:
-Here, docker host1 is in **172.16.10.100/24** and docker host2 in **172.16.20.100/24** network. They are in completely different network as separated by layer 3. In this lab we won’t use any docker network driver but instead configure our own. We will need bridge interface on each host connects with associated container network. In that case Open vSwitch (**OVS**) will be used. **OVS** is a very powerfull multilayer virtual switch utility. Although, we can built this configuration using **Linux native bridges**. We will built two internal network **( net1: 10.0.1.0/24  and net2: 10.0.2.0/24)** on each docker host and establish layer 2 connectivity between them. We will achieve this by creating **VXLAN** tunnel between these node. We will create two tunnels for **net1** and **net2**. Also, we will provide internet connectivity on these network and do some troubleshooting. So, our distributed docker network will be look like this.
+Here, docker host1 is in **172.16.10.100/24** and docker host2 in **172.16.20.100/24** network. They are in completely different network as separated by layer 3. In this lab we won’t use any docker network driver but instead configure our own. We will need bridge interface on each host connects with associated container network. In that case Open vSwitch (**OVS**) will be used. **OVS** is a very powerful multilayer virtual switch. Although, we can build this configuration using **Linux native bridges**. We will built two internal network **( net1: 10.0.1.0/24  and net2: 10.0.2.0/24 )** on each docker host and establish layer 2 connectivity between them. We will achieve this by creating **VXLAN** tunnel between these nodes. We will create two tunnels for **net1** and **net2**. Also, we will provide internet connectivity on these network and do some troubleshooting. So, our distributed docker network will be look like this.
 
 ![diag-1](https://user-images.githubusercontent.com/22352861/150917568-49c37c6a-6b05-4767-a42c-bb7eb9156f1f.jpg)
   
 # Environment Setup:
-We will create a custom docker image on both node for this lab. So, it will be easy for us to test and troubleshoot issue. We can create docker image from Dockerfile. I have added required files in this repository. We will build custom image named **con_img** by below command:
+We will create a custom docker image on both nodes for this lab. So, it will be easy for us to test and troubleshoot issue. We can create docker image from Dockerfile. I have added required files in this repository. We will build custom image named **con_img** by below command:
 
   docker build -t con_img .
 
@@ -47,7 +47,7 @@ We didn't use any docker network driver above by adding **--net none** option. F
 
   sudo ovs-vsctl add-port br1 vxlan1 -- set interface vxlan1 type=vxlan options:remote_ip=172.16.20.100 options:key=5000
   
-###### **ovs-docker** is a nice command. With this we can easily create virtual interface in container network namespace and connects with bridge interface.
+###### "**ovs-docker**" is a nice command. With this we can easily create virtual interface in container network namespace and connects with bridge interface.
 
 ###### Now, attach **net1** into container **doc1** with IP configuration by below command:
 
@@ -86,12 +86,12 @@ Also, if we check from host machine then we will see that OVS internal ports wil
 ![2](https://user-images.githubusercontent.com/22352861/150960915-f5d0c5e6-76cf-406f-97da-7b0ead757eaa.JPG)
 
 #### NAT for Internet connectivity:
-If we want to enable internet connectivity for **net1** & **net2** network then first we need to enable IP forwarding on host machine.
+If we want to enable internet connectivity for **net1** & **net2**, then first we need to enable IP forwarding on host machine.
 
   echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf\
   sudo sysctl -p /etc/sysctl.conf
   
-For outside network access (Ex: internet) from **net1**, **net2** interfaces or network, we have to configure **SNAT** or **Masquerad**. We will do this configuration using **iptables**. We will configure masquerad interface wise. 
+For outside network access (Ex: internet) from **net1**, **net2** interfaces or network, we have to configure **SNAT** or **MASQUERADE**. We will do this configuration using **iptables**. We will configure masquerad interface wise. 
 
 ###### NAT configuration for **net1**:
 
@@ -147,7 +147,7 @@ sudo ovs-vsctl show
 ![3](https://user-images.githubusercontent.com/22352861/150972911-cc5533d2-221d-4233-9eb8-156c50d397ac.JPG)
   
 # Testing & Troubleshooting:
-In this situation two distributed networks has been created between docker hoat1 and host2. We can check from containers:
+In this situation two distributed networks have been created between docker hoat1 and host2. We can check from containers:
 
 ![4](https://user-images.githubusercontent.com/22352861/150973927-e20b55bc-612a-43fa-9162-00763ce8c673.JPG)
 
@@ -159,11 +159,11 @@ Also, we are able to ping external network due to NAT configuration. But still t
 
 ![6](https://user-images.githubusercontent.com/22352861/150998396-467841dd-98c0-4365-9697-30e8fcf4812e.JPG)
 
-As we use encapsulation, we get the common MTU (Maximum Transmission Unit) problem which occurs in such cases. MTU defines the maximum size of ethernet frame which can be transmitted over the line. When MTU size is exceeded, IP package is splitted to the multiple packets or even gets dropped. In this case we run into the common problem of MTU size. The frame on the underlaying network is bigger that standard MTU of 1500. VXLAN requires 1554 MTU size for IPv4 traffic. But typically default value is set as 1500.
+As we use encapsulation, we get the common MTU (Maximum Transmission Unit) problem which occurs in such cases. MTU defines the maximum size of Ethernet frame which can be transmitted over the line. When MTU size is exceeded, IP packet is fragmented to the multiple packets or even gets dropped. In this case we run into the common problem of MTU size. The frame on the underlying network is bigger that standard MTU of 1500. VXLAN requires 1554 MTU size for IPv4 traffic. But typically default value is set as 1500.
 
 ![8](https://user-images.githubusercontent.com/22352861/151002071-97b8fc37-ba61-44a1-b4bd-36bf6892849e.JPG)
 
-In order to overcome this problems, we have to adjust MTU on the underlaying network. All interfaces associated with underlaying network need to change. We can change interface MTU by below command:
+In order to overcome this problems, we have to adjust MTU on the underlying network. All interfaces associated with underlying network need to change. We can change interface MTU by below command:
 
   sudo ifconfig eth0 mtu 1554
   
@@ -174,7 +174,7 @@ In order to overcome this problems, we have to adjust MTU on the underlaying net
 We can clearly see the problem has been fixed.
 
 # Outcome:
-In this lab, we have sucessfully created doacker distributed network. One big benefit of using **OVS** bridge is it can be directly accessed from physical or host network if route available. No port forwarding is needed. This is more efficient. We can check from one of host machine:
+In this lab, we have successfully created docker distributed network. One big benefit of using **OVS** bridge is it can be directly accessed from physical or host network if route available. No port forwarding is needed. This is more efficient. We can check from one of host machine:
 
 ![9](https://user-images.githubusercontent.com/22352861/151006280-4d8c8db5-ab57-4257-a4a6-c54f6f374e4e.JPG)
 
