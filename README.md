@@ -180,4 +180,8 @@ In this lab, we have successfully created docker distributed network. One big be
 
 Last but not the least, we can configure our container network in several ways as per our requirements just like we can launch container without specifying gateway then we only have layer 2 connectivity. Beside that if we want to use host network in container. we can also do that by adding physical interface into **OVS** bridge. So, possibilities are endless.
 
+# Reference
 
+[Open vSwitch (OVS)](https://docs.openvswitch.org/en/latest/howto/)
+[Docker Network](https://iximiuz.com/en/posts/container-networking-is-simple/)
+[iptables](https://dustinspecker.com/posts/iptables-how-docker-publishes-ports/)
