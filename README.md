@@ -75,6 +75,10 @@ We didn't use any docker network driver above by adding **--net none** option. F
 We can now investigate our bridge interface and port status by below command:
 
   sudo ovs-vsctl show
+  
+![1](https://user-images.githubusercontent.com/22352861/150959364-336f76ac-126c-49b6-afcd-fe2276cede4b.JPG)
+
+Also, if we check from host machine then we will see that OVS internal ports will be shown as network interface along with their IP configuration.
 
 
   
