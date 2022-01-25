@@ -28,7 +28,7 @@ First we will launch two docker containers **doc1** and **doc2** from host1 and 
   docker run -di --net none --name doc1 con_img\
   docker run -di --net none --name doc2 con_img 
   
-We didn't use any docker network driver above by adding **--net none** option. For creating and connnecting our own container network **(net1 & net2)** we need to have bridge in docker host machine. We will create two bridge interface for these networks.\
+We didn't use any docker network driver above by adding **--net none** option. For creating and connnecting our own container network **(net1 & net2)** we need to have bridge in docker host machine. We will create two bridge interface for these networks.
 
 #### Create first bridge **br1** for **net1**:
 
@@ -58,11 +58,11 @@ We didn't use any docker network driver above by adding **--net none** option. F
 
 ###### Create internal port **net2** under bridge **br2**:
 
-  sudo ovs-vsctl add-port br2 net2 -- set interface net1 type=internal
+  sudo ovs-vsctl add-port br2 net2 -- set interface net2 type=internal
   
 ###### Assign gateway IP to **net2** internal port:
 
-  sudo ifconfig net1 10.0.2.1 netmask 255.255.255.0 up
+  sudo ifconfig net2 10.0.2.1 netmask 255.255.255.0 up
   
 ###### Create VXLAN tunnel port **vxlan2** for **net2**:
 
