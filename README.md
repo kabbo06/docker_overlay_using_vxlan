@@ -174,7 +174,7 @@ In order to overcome this problem, we have to adjust MTU on the underlying netwo
 We can clearly see the problem has been fixed.
 
 # Outcome:
-In this lab, we have successfully created docker distributed network. One big benefit of using **OVS** bridge is it can be directly accessed from physical or host network if route is available. No port forwarding is needed. This is more efficient. We can check from one of host machines:
+In this lab, we have successfully created docker distributed network. One big advantage of using **OVS** bridge is that it can be directly accessed from physical or host network if route is available. No port forwarding is needed. This is more efficient. We can check from one of host machines:
 
 ![9](https://user-images.githubusercontent.com/22352861/151006280-4d8c8db5-ab57-4257-a4a6-c54f6f374e4e.JPG)
 
