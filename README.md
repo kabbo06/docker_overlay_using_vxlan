@@ -12,7 +12,7 @@ Here, docker host1 is in **172.16.10.100/24** and docker host2 in **172.16.20.10
 ![diag-1](https://user-images.githubusercontent.com/22352861/150917568-49c37c6a-6b05-4767-a42c-bb7eb9156f1f.jpg)
   
 # Environment Setup:
-We will create a custom docker image on both node for this lab. So, it will be easy for us to test and troubleshoot issue. We can create docker image from Dockerfile. I have added required files in this repository. We will build custom image named **con_img** by below command.
+We will create a custom docker image on both node for this lab. So, it will be easy for us to test and troubleshoot issue. We can create docker image from Dockerfile. I have added required files in this repository. We will build custom image named **con_img** by below command:
 
   docker build -t con_img .
 
@@ -23,17 +23,58 @@ We will create a custom docker image on both node for this lab. So, it will be e
 # Overlay Network Configuration:
 ### Docker Host1 (172.16.10.100):
 
-First we will launch two docker containers **doc1** and **doc2** from host1 and define two networks for them respectively. Spawn container by below command.
+First we will launch two docker containers **doc1** and **doc2** from host1 and define two networks for them respectively. Spawn container by below command:
 
   docker run -di --net none --name doc1 con_img\
   docker run -di --net none --name doc2 con_img 
   
 We didn't use any docker network driver above by adding **--net none** option. For creating and connnecting our own container network **(net1 & net2)** we need to have bridge in docker host machine. We will create two bridge interface for these networks.\
 
-Now, create first bridge interface named **br1** using ovs utility.
+#### Create first bridge **br1** for **net1**:
 
   sudo ovs-vsctl add-br br1
 
+###### Create internal port **net1** under bridge **br1**:
+
+  sudo ovs-vsctl add-port br1 net1 -- set interface net1 type=internal
+  
+###### Assign gateway IP to **net1** internal port:
+
+  sudo ifconfig net1 10.0.1.1 netmask 255.255.255.0 up
+  
+###### Create VXLAN tunnel port **vxlan1** for **net1**:
+
+  sudo ovs-vsctl add-port br1 vxlan1 -- set interface vxlan1 type=vxlan options:remote_ip=172.16.20.100 options:key=5000
+  
+###### Now, attach **net1** into container "doc1" with IP configuration by below:
+
+  sudo ovs-docker add-port br1 eth0 doc1 --ipaddress=10.0.1.10/24 --gateway=10.0.1.1
+
+###### Same way we will create another bridge and internal port for **net2**.
+
+#### Create second bridge **br2** for **net2**:
+
+  sudo ovs-vsctl add-br br2
+
+###### Create internal port **net2** under bridge **br2**:
+
+  sudo ovs-vsctl add-port br2 net2 -- set interface net1 type=internal
+  
+###### Assign gateway IP to **net2** internal port:
+
+  sudo ifconfig net1 10.0.2.1 netmask 255.255.255.0 up
+  
+###### Create VXLAN tunnel port **vxlan2** for **net2**:
+
+  sudo ovs-vsctl add-port br2 vxlan2 -- set interface vxlan2 type=vxlan options:remote_ip=172.16.20.100 options:key=6000
+  
+###### Now, attach **net2** into container "doc2" with IP configuration by below:
+
+  sudo ovs-docker add-port br2 eth0 doc2 --ipaddress=10.0.2.10/24 --gateway=10.0.2.1
+  
+We can now investigate our bridge interface and port status by below command:
+
+  sudo ovs-vsctl show
 
 
   
