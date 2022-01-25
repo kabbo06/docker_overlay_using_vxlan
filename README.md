@@ -47,7 +47,7 @@ We didn't use any docker network driver above by adding **--net none** option. F
 
   sudo ovs-vsctl add-port br1 vxlan1 -- set interface vxlan1 type=vxlan options:remote_ip=172.16.20.100 options:key=5000
   
-###### Now, attach **net1** into container "doc1" with IP configuration by below:
+###### Now, attach **net1** into container **doc1** with IP configuration by below:
 
   sudo ovs-docker add-port br1 eth0 doc1 --ipaddress=10.0.1.10/24 --gateway=10.0.1.1
 
@@ -69,7 +69,7 @@ We didn't use any docker network driver above by adding **--net none** option. F
 
   sudo ovs-vsctl add-port br2 vxlan2 -- set interface vxlan2 type=vxlan options:remote_ip=172.16.20.100 options:key=6000
   
-###### Now, attach **net2** into container "doc2" with IP configuration by below:
+###### Now, attach **net2** into container **doc2** with IP configuration by below:
 
   sudo ovs-docker add-port br2 eth0 doc2 --ipaddress=10.0.2.10/24 --gateway=10.0.2.1
   
@@ -122,11 +122,9 @@ We will extend networks (**net1** & **net2**) from docker host1 which we build p
 
   sudo ovs-vsctl add-port br1 vxlan1 -- set interface vxlan1 type=vxlan options:remote_ip=172.16.10.100 options:key=5000
   
-  ###### Now, attach **net1** into container "doc3" with IP configuration by below:
+  ###### Now, attach **net1** into container **doc3** with IP configuration by below:
 
   sudo ovs-docker add-port br1 eth0 doc3 --ipaddress=10.0.1.20/24 --gateway=10.0.1.1
-
-###### Same way we will create another bridge and internal port for **net2**.
 
 #### Create second bridge **br2** for **net2**:
 
@@ -136,6 +134,11 @@ We will extend networks (**net1** & **net2**) from docker host1 which we build p
 
   sudo ovs-vsctl add-port br2 vxlan2 -- set interface vxlan2 type=vxlan options:remote_ip=172.16.10.100 options:key=6000
   
-###### Now, attach **net2** into container "doc4" with IP configuration by below:
+###### Now, attach **net2** into container **doc4** with IP configuration by below:
 
   sudo ovs-docker add-port br2 eth0 doc4 --ipaddress=10.0.2.20/24 --gateway=10.0.2.1
+  
+# Testing & Troubleshooting:
+In this situation two distributed netork has been formed between docker hoat1 and host2. We can check:
+
+
