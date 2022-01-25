@@ -153,6 +153,8 @@ In this situation two distributed networks has been created between docker hoat1
 
 From above we see container under **net1** can communicate each other. We will get similar result for **net2** also. 
 
-Also, we are able to ping external network due to NAT configuration. But still there is a problem. We will face problem like downloading some package into container. This will happen due to **MTA** issue. 
+Also, we are able to ping external network due to NAT configuration. But still there is one problem. We will face problem in network communication. We can check this by **iperf** tools:
+
+
 
 
