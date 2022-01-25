@@ -186,4 +186,8 @@ Last but not the least, we can configure our container network in several ways a
 
 [Docker Network](https://iximiuz.com/en/posts/container-networking-is-simple/)
 
+[VXLAN](https://docs.openvswitch.org/en/latest/faq/vxlan/)
+
 [iptables](https://dustinspecker.com/posts/iptables-how-docker-publishes-ports/)
+
+[VXLAN MTU Considerations](https://oswalt.dev/2014/03/mtu-considerations-for-vxlan/)
