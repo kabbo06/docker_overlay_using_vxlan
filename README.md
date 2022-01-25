@@ -147,4 +147,12 @@ sudo ovs-vsctl show
 # Testing & Troubleshooting:
 In this situation two distributed netorks has been created between docker hoat1 and host2. We can check from containers:
 
+![4](https://user-images.githubusercontent.com/22352861/150973927-e20b55bc-612a-43fa-9162-00763ce8c673.JPG)
+
+![5](https://user-images.githubusercontent.com/22352861/150974005-2f430883-68a6-42a1-9940-79e4a265b9e1.JPG)
+
+From above we see container under **net1** can communicate each other. We will get similar result for **net2** also. 
+
+Also, we are able to ping external network due to NAT configuration. But still there is a problem. We will face problem like downloading some package into container. This will occure due to **MTA** issue. 
+
 
