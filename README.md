@@ -157,6 +157,12 @@ Also, we are able to ping external network due to NAT configuration. But still t
 
 ![6](https://user-images.githubusercontent.com/22352861/150998396-467841dd-98c0-4365-9697-30e8fcf4812e.JPG)
 
-As we use encapsulation, we get the common MTU (Maximum Transmission Unit) problem which occurs in such cases. MTU defines the maximum size of ethernet frame, which can be transmitted over the line. When MTU size is exceeded, IP package is splitted to the multiple packets or even gets dropped. In the VXLAN setup with encapsulation, we have Ethernet frames on the underlaying network and we also have ethernet frame on the overlay network. In this case we run into the common problem of MTU size: the frame on the underlaying network is bigger that standard MTU of 1500. we have to adjust MTU on the underlaying network. VXLAN requires 1554 MTU size for typical IPv4 traffic. But typically default value is set as 1500.
+As we use encapsulation, we get the common MTU (Maximum Transmission Unit) problem which occurs in such cases. MTU defines the maximum size of ethernet frame which can be transmitted over the line. When MTU size is exceeded, IP package is splitted to the multiple packets or even gets dropped. In this case we run into the common problem of MTU size. The frame on the underlaying network is bigger that standard MTU of 1500. VXLAN requires 1554 MTU size for IPv4 traffic. But typically default value is set as 1500.
 
+![8](https://user-images.githubusercontent.com/22352861/151002071-97b8fc37-ba61-44a1-b4bd-36bf6892849e.JPG)
 
+In order to overcome this problems, we have to adjust MTU on the underlaying network. All interfaces associated with underlaying network need to change. We can change interface MTU by below command:
+
+  sudo ifconfig eth0 mtu 1554
+  
+  Now check again with **iperf** tools:
