@@ -138,6 +138,10 @@ We will extend networks (**net1** & **net2**) from docker host1 which we build p
 
   sudo ovs-docker add-port br2 eth0 doc4 --ipaddress=10.0.2.20/24 --gateway=10.0.2.1
   
+Now check bridge interface status by below command:
+
+sudo ovs-vsctl show
+  
 # Testing & Troubleshooting:
 In this situation two distributed netork has been formed between docker hoat1 and host2. We can check:
 
