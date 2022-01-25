@@ -172,5 +172,10 @@ In order to overcome this problems, we have to adjust MTU on the underlaying net
 We can clearly see the problem has been fixed.
 
 # Outcome:
-In this lab, we have sucessfully created doacker distributed network. One big benefit of using **OVS** bridge is it can be directly accessed from physical or host network if route available. No port forwarding is needed. This is more efficient. We can check from host machine:
+In this lab, we have sucessfully created doacker distributed network. One big benefit of using **OVS** bridge is it can be directly accessed from physical or host network if route available. No port forwarding is needed. This is more efficient. We can check from one of host machine:
+
+![9](https://user-images.githubusercontent.com/22352861/151006280-4d8c8db5-ab57-4257-a4a6-c54f6f374e4e.JPG)
+
+Last but not least, we can configure our containet network in several ways as per our requirements just like if we launch container without specifying gateway then we only have layer 2 connectivity. 
+
 
