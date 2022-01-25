@@ -141,6 +141,8 @@ We will extend networks (**net1** & **net2**) from docker host1 which we build p
 Now check bridge interface status by below command:
 
 sudo ovs-vsctl show
+
+![3](https://user-images.githubusercontent.com/22352861/150972911-cc5533d2-221d-4233-9eb8-156c50d397ac.JPG)
   
 # Testing & Troubleshooting:
 In this situation two distributed netork has been formed between docker hoat1 and host2. We can check:
