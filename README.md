@@ -166,3 +166,11 @@ In order to overcome this problems, we have to adjust MTU on the underlaying net
   sudo ifconfig eth0 mtu 1554
   
   Now check again with **iperf** tools:
+
+![7](https://user-images.githubusercontent.com/22352861/151004088-8531fda7-7d8d-48f0-86c2-2f77d57d4345.JPG)
+
+We can clearly see the problem has been fixed.
+
+# Outcome:
+In this lab, we have sucessfully created doacker distributed network. One big benefit of using **OVS** bridge is it can be directly accessed from physical or host network if route available. No port forwarding is needed. This is more efficient. We can check from host machine:
+
