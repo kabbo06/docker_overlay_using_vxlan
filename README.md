@@ -1,5 +1,5 @@
 # Extending multiple Docker network using VXLAN tunneling 
-In this experiment, we will create multiple docker network and extend over layer 3 isolation. We will achive this by creating VXLAN tunnel between docker host. In this lab three virtual machines will be used. We will configure multiple distributed network between two docker host VMs. Another VM will be used as a gateway router. 
+In this experiment, we will create multiple docker network and extend over layer 3 isolation. We will achieve this goal by creating VXLAN tunnel between docker host. In this lab three virtual machines will be used. We will configure multiple distributed network between two docker host VMs. Another VM will be used as a gateway router. 
 
 # Requirements:
   **VM1: GW Router**\
@@ -29,7 +29,7 @@ First we launch two docker containers **doc1** and **doc2** from host1 and after
   docker run -di --net none --name doc1 con_img\
   docker run -di --net none --name doc2 con_img 
   
-We didn't use any docker network driver above by adding **--net none** option. For creating and connnecting our own container network **(net1 & net2)** we need to have bridge in docker host machine. We will create two bridge interface for these networks.
+We didn't use any docker network driver above by adding **--net none** option. For creating and connecting our own container network **(net1 & net2)** we need to have bridge in docker host machine. We will create two bridge interface for these networks.
 
 #### Create first bridge **br1** for **net1**:
 
@@ -79,7 +79,7 @@ We can now investigate our bridge interface and port status by below command:
   
 ![1](https://user-images.githubusercontent.com/22352861/150959364-336f76ac-126c-49b6-afcd-fe2276cede4b.JPG)
 
-Also, if we check from host machine then we will see that OVS internal ports will be shown as network interface along with their IP. We have confugured gateway IP **10.0.1.1** & **10.0.2.1** on these interfaces. These gateway interfaces will also used by another host's containers bacause we will have pure layer 2 connectivity between them. 
+Also, if we check from host machine then we will see that OVS internal ports will be shown as network interface along with their IP. We have configured gateway IP **10.0.1.1** & **10.0.2.1** on these interfaces. These gateway interfaces will also use by another host's containers because we will have pure layer 2 connectivity between them. 
 
 ![2](https://user-images.githubusercontent.com/22352861/150960915-f5d0c5e6-76cf-406f-97da-7b0ead757eaa.JPG)
 
@@ -112,7 +112,7 @@ First launch two docker containers **doc3** and **doc4** from host2:
   docker run -di --net none --name doc3 con_img\
   docker run -di --net none --name doc4 con_img 
   
-We will extend networks (**net1** & **net2**) from docker host1 which we build previously. After creating and configuring VXLAN interface on this host, distributed layer 2 network will be established. Then containets from both nodes will be available to each others. We will configure bridge, internal port and VXLAN interfaces in similar way. We don't need internal port on this node because gateway interfaces already exist on host1.
+We will extend networks (**net1** & **net2**) from docker host1 which we build previously. After creating and configuring VXLAN interface on this host, distributed layer 2 network will be established. Then containers from both nodes will be available to each other’s. We will configure bridge, internal port and VXLAN interfaces in similar way. We don't need internal port on this node because gateway interfaces already exist on host1.
 
 #### Create first bridge **br1** for **net1**:
 
@@ -145,7 +145,7 @@ sudo ovs-vsctl show
 ![3](https://user-images.githubusercontent.com/22352861/150972911-cc5533d2-221d-4233-9eb8-156c50d397ac.JPG)
   
 # Testing & Troubleshooting:
-In this situation two distributed netorks has been created between docker hoat1 and host2. We can check from containers:
+In this situation two distributed networks has been created between docker hoat1 and host2. We can check from containers:
 
 ![4](https://user-images.githubusercontent.com/22352861/150973927-e20b55bc-612a-43fa-9162-00763ce8c673.JPG)
 
@@ -153,6 +153,6 @@ In this situation two distributed netorks has been created between docker hoat1 
 
 From above we see container under **net1** can communicate each other. We will get similar result for **net2** also. 
 
-Also, we are able to ping external network due to NAT configuration. But still there is a problem. We will face problem like downloading some package into container. This will occure due to **MTA** issue. 
+Also, we are able to ping external network due to NAT configuration. But still there is a problem. We will face problem like downloading some package into container. This will happen due to **MTA** issue. 
 
 
