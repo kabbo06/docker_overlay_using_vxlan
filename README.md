@@ -184,6 +184,8 @@ Last but not the least, we can configure our container network in several ways a
 
 [Open vSwitch (OVS)](https://docs.openvswitch.org/en/latest/howto/)
 
+[OVS Internal Port]([Open vSwitch (OVS)](https://docs.openvswitch.org/en/latest/howto/))
+
 [Docker Network](https://iximiuz.com/en/posts/container-networking-is-simple/)
 
 [VXLAN](https://docs.openvswitch.org/en/latest/howto/userspace-tunneling/)
