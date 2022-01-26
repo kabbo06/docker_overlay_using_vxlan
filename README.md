@@ -188,7 +188,9 @@ Last but not the least, we can configure our container network in several ways a
 
 [Docker Network](https://iximiuz.com/en/posts/container-networking-is-simple/)
 
-[VXLAN](https://docs.openvswitch.org/en/latest/howto/userspace-tunneling/)
+[VXLAN](https://medium.com/@NTTICT/vxlan-explained-930cc825a51)
+
+[VXLAN in OVS](https://docs.openvswitch.org/en/latest/howto/userspace-tunneling/)
 
 [iptables](https://dustinspecker.com/posts/iptables-how-docker-publishes-ports/)
 
