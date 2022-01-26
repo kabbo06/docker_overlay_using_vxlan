@@ -192,6 +192,6 @@ Last but not the least, we can configure our container network in several ways a
 
 [VXLAN in OVS](https://docs.openvswitch.org/en/latest/howto/userspace-tunneling/)
 
-[iptables](https://dustinspecker.com/posts/iptables-how-docker-publishes-ports/)
-
 [VXLAN MTU Considerations](https://oswalt.dev/2014/03/mtu-considerations-for-vxlan/)
+
+[iptables](https://dustinspecker.com/posts/iptables-how-docker-publishes-ports/)
